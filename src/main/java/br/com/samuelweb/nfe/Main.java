@@ -23,7 +23,7 @@ public class Main {
 		TEnviNFe enviNfe = XmlUtil.xmlToObject(XmlUtil.leXml("xml.xml"), TEnviNFe.class);
 
 		enviNfe = Nfe.montaNfe(enviNfe, false);
-		TRetEnviNFe retorno = Nfe.enviarNfe(enviNfe, Tipo.NFE);
+		TRetEnviNFe retorno = Nfe.enviarNfe(enviNfe);
 		System.out.println(retorno.getCStat());
 		System.out.println(retorno.getXMotivo());
 		System.out.println(retorno);
@@ -38,7 +38,5 @@ public class Main {
 			} catch (Exception e) {
 			}
 		}
-
 	}
-
 }

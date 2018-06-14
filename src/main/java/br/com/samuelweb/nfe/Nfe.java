@@ -9,6 +9,7 @@ import br.com.samuelweb.nfe.dom.Enum.TipoManifestacao;
 import br.com.samuelweb.nfe.exception.NfeException;
 import br.com.samuelweb.nfe.util.Estados;
 import br.com.samuelweb.nfe.util.Tipo;
+import br.com.samuelweb.nfe.util.ValidadorCpfCnpj;
 import br.com.samuelweb.nfe.util.XmlUtil;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TEnvEvento;
 import br.inf.portalfiscal.nfe.schema.envEventoCancNFe.TRetEnvEvento;
@@ -47,6 +48,10 @@ public class Nfe {
 	 */
 	public static RetDistDFeInt distribuicaoDfe(String tipoCliente, String cpfCnpj, String tipoConsulta,
 			String nsuChave) throws NfeException {
+
+		if (ValidadorCpfCnpj.isValidCNPJ(cpfCnpj) == false && ValidadorCpfCnpj.isValidCPF(cpfCnpj) == false) {
+			throw new NfeException("CPF OU CNPJ INVÁLIDO!");
+		}
 
 		return DistribuicaoDFe.consultaNfe(tipoCliente, cpfCnpj, tipoConsulta, nsuChave);
 
@@ -92,6 +97,10 @@ public class Nfe {
 	 * @throws NfeException
 	 */
 	public static TRetConsCad consultaCadastro(String tipo, String cpfCnpj, Estados estado) throws NfeException {
+
+		if (ValidadorCpfCnpj.isValidCNPJ(cpfCnpj) == false && ValidadorCpfCnpj.isValidCPF(cpfCnpj) == false) {
+			throw new NfeException("CPF OU CNPJ INVÁLIDO!");
+		}
 
 		return ConsultaCadastro.consultaCadastro(tipo, cpfCnpj, estado);
 
@@ -183,6 +192,10 @@ public class Nfe {
 			tipo = Tipo.NFE;
 		else
 			tipo = Tipo.NFCE;
+
+		if (enviNFe.getNFe().get(0).getSignature() == null) {
+			throw new NfeException("Nota Fiscal não assinada!");
+		}
 
 		return Enviar.enviaNfe(enviNFe, tipo);
 
