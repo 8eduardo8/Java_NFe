@@ -36,7 +36,7 @@ class ConsultaCadastro {
      * @throws NfeException
      */
 
-    static TRetConsCad consultaCadastro(String tipo, String cnpjCpf, Estados estado) throws NfeException {
+    static TRetConsCad consultaCadastro(String tipo, String cpfCnpj, Estados estado) throws NfeException {
 
         try {
 
@@ -47,9 +47,9 @@ class ConsultaCadastro {
 
             TConsCad.InfCons infCons = new TConsCad.InfCons();
             if (CNPJ.equals(tipo)) {
-                infCons.setCNPJ(cnpjCpf);
+                infCons.setCNPJ(cpfCnpj);
             } else {
-                infCons.setCPF(cnpjCpf);
+                infCons.setCPF(cpfCnpj);
             }
             infCons.setXServ("CONS-CAD");
             infCons.setUF(TUfCons.valueOf(estado.toString()));
